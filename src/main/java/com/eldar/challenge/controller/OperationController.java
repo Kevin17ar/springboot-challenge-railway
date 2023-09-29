@@ -30,7 +30,7 @@ public class OperationController {
             if (body.getBrand() == null || body.getBrand().isEmpty() || !brandList.contains(body.getBrand()))
                 return ResponseEntity.badRequest().body(Collections.singletonMap("error", "Brand not exist"));
             if (body.getAmount() <= 0 || !CardOperationUtil.isOperationValid(body.getAmount()))
-                return ResponseEntity.badRequest().body(Collections.singletonMap("error", "Amount must be greater than 0 or is null"));
+                return ResponseEntity.badRequest().body(Collections.singletonMap("error", "Amount must be is between 0 and 1000"));
 
             String rate_info = operationService.getInfoRateOperation(body.getBrand(), body.getAmount());
             return ResponseEntity.ok(new InfoOperationDTO(true, rate_info));

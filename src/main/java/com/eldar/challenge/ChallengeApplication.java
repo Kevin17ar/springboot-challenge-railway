@@ -3,11 +3,13 @@ package com.eldar.challenge;
 import com.eldar.challenge.enums.CreditBrand;
 import com.eldar.challenge.model.CreditCard;
 import com.eldar.challenge.util.CardOperationUtil;
+import com.eldar.challenge.util.StringUtil;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @SpringBootApplication
 public class ChallengeApplication implements CommandLineRunner {
@@ -32,6 +34,10 @@ public class ChallengeApplication implements CommandLineRunner {
 		System.out.println(CardOperationUtil.areCardsEquals(card2, card3));
 		// Obtener por medio de un método la tasa de una operación informando marca e importe
 		System.out.println(CardOperationUtil.getOperationInfoRate(442.00, card1.getBrand(), LocalDate.now()));
+
+		// Ejercicio 5)
+		System.out.println(StringUtil.joinStrings(List.of("kevin", "Fernando", "Felipe", "plato")));
+		System.out.println(StringUtil.joinStrings(List.of("kevin", "Fer1232ndo", "Fe{+", "plato developer")));
 
 	}
 }

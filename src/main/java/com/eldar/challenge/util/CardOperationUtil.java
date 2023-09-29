@@ -50,11 +50,20 @@ public class CardOperationUtil {
     }
 
     /**
+     * Calculates and returns the operation rate information based on the provided amount, credit brand, and date.
+     * The rate calculation varies depending on the credit brand:
+     * - For VISA: It's determined by the last two digits of the year divided by the month number.
+     * - For NARA: It's based on the day of the month multiplied by 0.5.
+     * - For AMEX: It's based on the month number multiplied by 0.1.
      *
-     * @param amount
-     * @param brand
-     * @param date
-     * @return
+     * the method will get the final rate by applying any necessary limits (0.3% - 5%).
+     * The service amount is calculated as a percentage of the provided amount based on this final rate (4%).
+     *
+     * @param amount The transaction amount. Must be a positive value.
+     * @param brand (e.g., VISA, NARA, AMEX).
+     * @param date The transaction date, used to determine parts of the rate calculation.
+     * @return A string representation of the operation rate information.
+     * @throws IllegalArgumentException If the provided amount is not positive or if the credit brand is not supported.
      */
     public static String getOperationInfoRate(Double amount, CreditBrand brand, LocalDate date) {
         if (amount <= 0) throw new IllegalArgumentException("amount must be positive");
@@ -94,10 +103,10 @@ public class CardOperationUtil {
     }
 
     /**
-     * Get info rate
-     * @param brand
-     * @param rate
-     * @param amountService
+     * Get info rate and other parameters
+     * @param brand (e.g., VISA, NARA, AMEX)
+     * @param rate 2.55
+     * @param amountService 450.34
      * @return "Brand: VISA| Rate : 2.55%| Amount (rate x amount): 11.27"
      */
     public static String toStringOperationRate(String brand, Double rate, Double amountService) {
@@ -106,7 +115,7 @@ public class CardOperationUtil {
 
     /**
      * Return the rate in a specified range
-     * @param rate
+     * @param rate 0.1
      * @return rate between 0.3% and 5%
      */
     public static double getRateLimit(double rate) {
@@ -119,7 +128,7 @@ public class CardOperationUtil {
 
     /**
      * Round to two decimal places, 2.343434 to 2.34
-     * @param value
+     * @param value 4.345656
      * @return 4.34
      */
     public static double roundToTwoDecimals(double value) {
